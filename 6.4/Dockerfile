@@ -29,6 +29,7 @@ RUN set -x \
     && rm -rf $SONARQUBE_HOME/bin/* \
     && curl -o sonar-scanner.zip -fSL https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip \
     && unzip sonar-scanner.zip \
+    && mv sonar-scanner-3.0.3.778-linux sonar-scanner \
     && rm sonar-scanner.zip \
     && PATH=$PATH:/opt/sonar-scanner/bin/ 
 
