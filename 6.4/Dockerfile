@@ -30,11 +30,16 @@ RUN set -x \
     && curl -o sonar-scanner.zip -fSL https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip \
     && unzip sonar-scanner.zip \
     && mv sonar-scanner-3.0.3.778-linux sonar-scanner \
-    && rm sonar-scanner.zip \
-    && PATH=$PATH:/opt/sonar-scanner/bin/ 
+    && rm sonar-scanner.zip
 
-VOLUME "$SONARQUBE_HOME/data"
+ENV PATH=$PATH:/opt/sonar-scanner/bin/
 
 WORKDIR $SONARQUBE_HOME
+RUN mkdir ../projects
+
+VOLUME "$SONARQUBE_HOME/data"
+VOLUME "/opt/projects"
+
 COPY run.sh $SONARQUBE_HOME/bin/
+RUN chmod +x $SONARQUBE_HOME/bin/run.sh
 ENTRYPOINT ["./bin/run.sh"]
